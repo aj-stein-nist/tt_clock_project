@@ -55,30 +55,30 @@ genvar digit, input_label, leds, switch;
 //
 
 // For $slideswitch.
-logic [7:0] L0_slideswitch_a0;
+wire [7:0] L0_slideswitch_a0;
 
 // For $sseg_decimal_point_n.
-logic L0_sseg_decimal_point_n_a0;
+wire L0_sseg_decimal_point_n_a0;
 
 // For $sseg_digit_n.
-logic [7:0] L0_sseg_digit_n_a0;
+wire [7:0] L0_sseg_digit_n_a0;
 
 // For $sseg_segment_n.
-logic [6:0] L0_sseg_segment_n_a0;
+wire [6:0] L0_sseg_segment_n_a0;
 
 // For /fpga_pins/fpga$cycle_counter.
-logic [31:0] FpgaPins_Fpga_cycle_counter_a0,
-             FpgaPins_Fpga_cycle_counter_a1;
+wire [31:0] FpgaPins_Fpga_cycle_counter_a0;
+reg  [31:0] FpgaPins_Fpga_cycle_counter_a1;
 
 // For /fpga_pins/fpga$display_counter.
-logic [3:0] FpgaPins_Fpga_display_counter_a0,
-            FpgaPins_Fpga_display_counter_a1;
+wire [3:0] FpgaPins_Fpga_display_counter_a0;
+reg  [3:0] FpgaPins_Fpga_display_counter_a1;
 
 // For /fpga_pins/fpga$reset.
-logic FpgaPins_Fpga_reset_a0;
+wire FpgaPins_Fpga_reset_a0;
 
 // For /fpga_pins/fpga$segments.
-logic [6:0] FpgaPins_Fpga_segments_a0;
+wire [6:0] FpgaPins_Fpga_segments_a0;
 
 
 
@@ -93,10 +93,10 @@ logic [6:0] FpgaPins_Fpga_segments_a0;
       //
 
          // Staging of $cycle_counter.
-         always_ff @(posedge clk) FpgaPins_Fpga_cycle_counter_a1[31:0] <= FpgaPins_Fpga_cycle_counter_a0[31:0];
+         always @(posedge clk) FpgaPins_Fpga_cycle_counter_a1[31:0] <= FpgaPins_Fpga_cycle_counter_a0[31:0];
 
          // Staging of $display_counter.
-         always_ff @(posedge clk) FpgaPins_Fpga_display_counter_a1[3:0] <= FpgaPins_Fpga_display_counter_a0[3:0];
+         always @(posedge clk) FpgaPins_Fpga_display_counter_a1[3:0] <= FpgaPins_Fpga_display_counter_a0[3:0];
 
 
 
@@ -108,27 +108,29 @@ logic [6:0] FpgaPins_Fpga_segments_a0;
 // Debug Signals
 //
 
+generate
+
    if (1) begin : DEBUG_SIGS_GTKWAVE
 
-      (* keep *) logic [7:0] \@0$slideswitch ;
+      (* keep *) wire [7:0] \@0$slideswitch ;
       assign \@0$slideswitch = L0_slideswitch_a0;
-      (* keep *) logic  \@0$sseg_decimal_point_n ;
+      (* keep *) wire  \@0$sseg_decimal_point_n ;
       assign \@0$sseg_decimal_point_n = L0_sseg_decimal_point_n_a0;
-      (* keep *) logic [7:0] \@0$sseg_digit_n ;
+      (* keep *) wire [7:0] \@0$sseg_digit_n ;
       assign \@0$sseg_digit_n = L0_sseg_digit_n_a0;
-      (* keep *) logic [6:0] \@0$sseg_segment_n ;
+      (* keep *) wire [6:0] \@0$sseg_segment_n ;
       assign \@0$sseg_segment_n = L0_sseg_segment_n_a0;
 
       //
       // Scope: /digit[0:0]
       //
-      for (digit = 0; digit <= 0; digit++) begin : \/digit 
+      for (digit = 0; digit <= 0; digit=digit+1) begin : \/digit 
 
          //
          // Scope: /leds[7:0]
          //
-         for (leds = 0; leds <= 7; leds++) begin : \/leds 
-            (* keep *) logic  \//@0$viz_lit ;
+         for (leds = 0; leds <= 7; leds=leds+1) begin : \/leds 
+            (* keep *) wire  \//@0$viz_lit ;
             assign \//@0$viz_lit = L1_Digit[digit].L2_Leds[leds].L2_viz_lit_a0;
          end
       end
@@ -142,13 +144,13 @@ logic [6:0] FpgaPins_Fpga_segments_a0;
          // Scope: /fpga
          //
          if (1) begin : \/fpga 
-            (* keep *) logic [31:0] \//@0$cycle_counter ;
+            (* keep *) wire [31:0] \//@0$cycle_counter ;
             assign \//@0$cycle_counter = FpgaPins_Fpga_cycle_counter_a0;
-            (* keep *) logic [3:0] \//@0$display_counter ;
+            (* keep *) wire [3:0] \//@0$display_counter ;
             assign \//@0$display_counter = FpgaPins_Fpga_display_counter_a0;
-            (* keep *) logic  \//@0$reset ;
+            (* keep *) wire  \//@0$reset ;
             assign \//@0$reset = FpgaPins_Fpga_reset_a0;
-            (* keep *) logic [6:0] \//@0$segments ;
+            (* keep *) wire [6:0] \//@0$segments ;
             assign \//@0$segments = FpgaPins_Fpga_segments_a0;
          end
       end
@@ -156,13 +158,15 @@ logic [6:0] FpgaPins_Fpga_segments_a0;
       //
       // Scope: /switch[7:0]
       //
-      for (switch = 0; switch <= 7; switch++) begin : \/switch 
-         (* keep *) logic  \/@0$viz_switch ;
+      for (switch = 0; switch <= 7; switch=switch+1) begin : \/switch 
+         (* keep *) wire  \/@0$viz_switch ;
          assign \/@0$viz_switch = L1_Switch[switch].L1_viz_switch_a0;
       end
 
 
    end
+
+endgenerate
 
 // ---------- Generated Code Ends ----------
 //_\TLV
@@ -225,29 +229,29 @@ logic [6:0] FpgaPins_Fpga_segments_a0;
       
          // 7-Segment
          //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 395   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 346 as: m4+fpga_sseg.
-            for (digit = 0; digit <= 0; digit++) begin : L1_Digit //_/digit
+            generate for (digit = 0; digit <= 0; digit=digit+1) begin : L1_Digit //_/digit
                
-               for (leds = 0; leds <= 7; leds++) begin : L2_Leds //_/leds
+               for (leds = 0; leds <= 7; leds=leds+1) begin : L2_Leds //_/leds
 
                   // For $viz_lit.
-                  logic L2_viz_lit_a0;
+                  wire L2_viz_lit_a0;
 
                   assign L2_viz_lit_a0 = (! L0_sseg_digit_n_a0[digit]) && ! ((leds == 7) ? L0_sseg_decimal_point_n_a0 : L0_sseg_segment_n_a0[leds % 7]);
                   
                end
-            end
+            end endgenerate
          //_\end_source
       
          // slideswitches
          //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 454   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 349 as: m4+fpga_switch.
-            for (switch = 0; switch <= 7; switch++) begin : L1_Switch //_/switch
+            generate for (switch = 0; switch <= 7; switch=switch+1) begin : L1_Switch //_/switch
 
                // For $viz_switch.
-               logic L1_viz_switch_a0;
+               wire L1_viz_switch_a0;
 
                assign L1_viz_switch_a0 = L0_slideswitch_a0[switch];
                
-            end
+            end endgenerate
          //_\end_source
       
          // pushbuttons
@@ -255,9 +259,9 @@ logic [6:0] FpgaPins_Fpga_segments_a0;
       //_\end_source
       // Label the switch inputs [0..7] (1..8 on the physical switch panel) (top-to-bottom).
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv 82   // Instantiated from top.tlv, 78 as: m5+tt_input_labels_viz(⌈"UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED", "UNUSED"⌉)
-         for (input_label = 0; input_label <= 7; input_label++) begin : L1_InputLabel //_/input_label
+         generate for (input_label = 0; input_label <= 7; input_label=input_label+1) begin : L1_InputLabel //_/input_label
             
-         end
+         end endgenerate
       //_\end_source
    
    //_\end_source
