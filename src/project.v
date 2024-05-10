@@ -227,11 +227,11 @@ logic [6:0] FpgaPins_Fpga_segments_a0;
                
                   assign FpgaPins_Fpga_reset_a0 = reset;
                   assign FpgaPins_Fpga_cycle_counter_a0[31:0] = FpgaPins_Fpga_reset_a0 ? 1 :
-                      FpgaPins_Fpga_cycle_counter_a1 == 20000000 ? 1 :
+                      FpgaPins_Fpga_cycle_counter_a1 == 10 ? 1 :
                       FpgaPins_Fpga_cycle_counter_a1 + 1;
                   assign FpgaPins_Fpga_display_counter_a0[3:0] =
                      FpgaPins_Fpga_reset_a0 ? 4'd0 :
-                     FpgaPins_Fpga_cycle_counter_a0 == 20000000
+                     FpgaPins_Fpga_cycle_counter_a0 == 10
                          ? FpgaPins_Fpga_display_counter_a1 == 9 ? 0 :
                            FpgaPins_Fpga_display_counter_a1 + 1 :
                      //default
