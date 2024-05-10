@@ -12,38 +12,6 @@
 // Modify the module contents to your needs.
 // ================================================
 
-module top(input logic clk, input logic reset, input logic [31:0] cyc_cnt, output logic passed, output logic failed);
-   // Tiny tapeout I/O signals.
-   logic [7:0] ui_in, uo_out;
-   logic [7:0] uio_in, uio_out, uio_oe;
-   logic [31:0] r;  // a random value
-   always @(posedge clk) r <= 0;
-   assign ui_in = r[7:0];
-   assign uio_in = 8'b0;
-   logic ena = 1'b0;
-   logic rst_n = ! reset;
-
-   /*
-   // Or, to provide specific inputs at specific times (as for lab C-TB) ...
-   // BE SURE TO COMMENT THE ASSIGNMENT OF INPUTS ABOVE.
-   // BE SURE TO DRIVE THESE ON THE B-PHASE OF THE CLOCK (ODD STEPS).
-   // Driving on the rising clock edge creates a race with the clock that has unpredictable simulation behavior.
-   initial begin
-      #1  // Drive inputs on the B-phase.
-         ui_in = 8'h0;
-      #10 // Step 5 cycles, past reset.
-         ui_in = 8'hFF;
-      // ...etc.
-   end
-   */
-
-   // Instantiate the Tiny Tapeout module.
-   tt_um_ajstein_stopwatch tt(.*);
-
-   assign passed = top.cyc_cnt > 600;
-   assign failed = 1'b0;
-endmodule
-
 
 // Provide a wrapper module to debounce input signals if requested.
 
