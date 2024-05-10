@@ -9,12 +9,14 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+This is a Tiny Tapeout project (designed to start for Tiny Tapeout 7 in May 2024) to use the 20 MHz of the ASIC chip to make a stopwatch that can count seconds in decimal format for ten second increments (from 0 to 9 and loops back to 0).
 
 ## How to test
 
-Explain how to use your project
+This is a simple project and has limited testing infrastructure. To test in simulation and analyze changes to the logic with a waveform analyzer, you can use [the published MakerChip project](https://mest.makerchip.com/sandbox/0DkfBhkK5/0k5hO4j#) associated with this GitHub repo and check the `clock_speed` to have smaller clock speeds and increment the decimal stopwatch much quicker than the necessary hardware clock speed.
+
+To test this with a Tiny Tapeout 3 Demo Board (v 2.2.5) and the ASIC Simulator (v1.2) using [this test harness repo](https://github.com/aj-stein-nist/tt_stopwatch_project_fpga.git) and use `dfu-util` to flash it on this device.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+This project is a simple first experiment that does not require additional external inputs or outputs.
